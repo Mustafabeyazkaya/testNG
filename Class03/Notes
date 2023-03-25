@@ -1,0 +1,119 @@
+whenever you want to create a testNG XML
+
+Approach is
+1. make sure the XML file is installed
+        go to File ---> setting    (for MAC ---> intellijidea --> prefrences)
+        plugins---> marketplace ---> TestNG XML and install ---> apply ok
+
+
+testNG XML file for a particular class
+1. right click the your the class ---> choose option create testNG XML
+2. the click on OK
+3. right click on the Project and select the option reload from disk.
+
+->then go to CODE section, click on it then, click on the reformat code
+
+
+in a testNG XML file
+
+we have a structure
+
+<suite>
+    <test name="abc">
+        <classes>
+            <class name"somethinfg"></class>
+            <class name"somethinfg"></class>
+        </classes>
+    </test>
+</suite>
+
+
+1. XML file
+    a.Class Wise Execution
+
+    we can control which classes to execute
+
+    <suite name="All Test Suite">
+        <test verbose="2" preserve-order="true"
+              name="C:/Users/mbeya/OneDrive/Desktop/demo/testNGBasicsBatch15/src/test/java/Class01/testNgannotations.java">
+            <classes>
+                <class name="Class01.Priority"></class>
+                <class name="Class02.dataProvider"></class>
+                <class name="Class01.AssertionBasic"></class>
+            </classes>
+        </test>
+    </suite>
+
+
+    b. Method Wise Execution
+        in order to include a method simply use the tag name "include"
+        in order to not run a method just use the tag name "exclude" , advantage of using exclude is when you want to run that method also, just go back to your xml and change it to include
+
+    <suite name="All Test Suite">
+        <test verbose="2" preserve-order="true" name="I can rename it">
+            <classes>
+              <class name="Class01.Priority">
+                  <methods>
+                      <include name="Atest"/>
+                      <include name="Btest"/>
+                      <exclude name="Ctest"/>
+                  </methods>
+              </class>
+            </classes>
+        </test>
+    </suite>
+
+
+    c. Package Wise Execution
+
+    you can run the whole package i.e all the classes included in that package
+
+    <suite name="All Test Suite">
+        <test verbose="2" preserve-order="true" name="you can rename it">
+           <packages>
+               <package name="Class01"></package>
+           </packages>
+        </test>
+    </suite>
+
+
+    d. Group Wise Execution
+
+    regression group ---> will consist of all the test cases included in regression testing
+
+    <suite name="All Test Suite">
+        <test verbose="2" preserve-order="true" name="regression group">
+            <groups>
+                <run>
+                    <include name="regression"/>
+                </run>
+            </groups>
+            <packages>
+                <package name="Class01"></package>
+            </packages>
+        </test>
+    </suite>
+
+
+ NOTE:
+ when ever you are marking a test case in a group, and that test case has a before and after method
+ make sure to mark it as (alwaysRun+true) otherwise those pre-post conditions are not going to run
+
+ @BeforeMethod(alwaysRun=true)
+ @AfterMethod(alwaysRun=true)
+
+
+        e. Parallel Wise Execution
+
+        <suite name="All Test Suite">
+            <test verbose="2" preserve-order="true" name="Parallel" parallel="classes" thread-count="4">
+                <classes>
+                    <class name="Class01.AssertionBasic"></class>
+                    <class name="Class02.softAssert"></class>
+                </classes>
+            </test>
+        </suite>
+
+
+        when ever you run parallel execution you need to add "parallel="classes" thread-count="4"" at the content
+
